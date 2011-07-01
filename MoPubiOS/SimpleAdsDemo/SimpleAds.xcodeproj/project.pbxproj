@@ -58,6 +58,7 @@
 		A7F12BB51373689E008ECC4E /* MPCloseButtonX.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F12BB31373689E008ECC4E /* MPCloseButtonX.png */; };
 		A7F12BB61373689E008ECC4E /* MPCloseButtonX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F12BB41373689E008ECC4E /* MPCloseButtonX@2x.png */; };
 		A8065E8B1326769E00C147DC /* MPTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065E8A1326769E00C147DC /* MPTimer.m */; };
+		B952307B13BE5280008477A9 /* ORMMAJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B952307A13BE5280008477A9 /* ORMMAJavascriptBridge.m */; };
 		B9DD97C713B2C25D001559F7 /* MPAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B9DD97C613B2C25D001559F7 /* MPAdManager.m */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +147,8 @@
 		A7F12BB41373689E008ECC4E /* MPCloseButtonX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPCloseButtonX@2x.png"; sourceTree = "<group>"; };
 		A8065E891326769E00C147DC /* MPTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPTimer.h; sourceTree = "<group>"; };
 		A8065E8A1326769E00C147DC /* MPTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPTimer.m; sourceTree = "<group>"; };
+		B952307913BE5280008477A9 /* ORMMAJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORMMAJavascriptBridge.h; sourceTree = "<group>"; };
+		B952307A13BE5280008477A9 /* ORMMAJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORMMAJavascriptBridge.m; sourceTree = "<group>"; };
 		B9DD97C113B2C25D001559F7 /* MPAdManager+MPAdaptersPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPAdManager+MPAdaptersPrivate.h"; path = "../MoPubTests/MPAdManager+MPAdaptersPrivate.h"; sourceTree = SOURCE_ROOT; };
 		B9DD97C213B2C25D001559F7 /* MPAdManager+MPAdView+InterstitialPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPAdManager+MPAdView+InterstitialPrivate.h"; path = "../MoPubTests/MPAdManager+MPAdView+InterstitialPrivate.h"; sourceTree = SOURCE_ROOT; };
 		B9DD97C313B2C25D001559F7 /* MPAdManager+MPAdView+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPAdManager+MPAdView+TestsPrivate.h"; path = "../MoPubTests/MPAdManager+MPAdView+TestsPrivate.h"; sourceTree = SOURCE_ROOT; };
@@ -315,6 +318,7 @@
 		3C83C6471308146000CD306C /* MoPubSDK */ = {
 			isa = PBXGroup;
 			children = (
+				B952307813BE5280008477A9 /* Javascript Bridge */,
 				3C94E561135757900078FE9E /* MPAdBrowserController.xib */,
 				3C83C64E1308146000CD306C /* MPAdView.h */,
 				3C83C64F1308146000CD306C /* MPAdView.m */,
@@ -362,6 +366,15 @@
 			name = MoPubNetworkAdapters;
 			path = ../extras/MoPubNetworkAdapters;
 			sourceTree = SOURCE_ROOT;
+		};
+		B952307813BE5280008477A9 /* Javascript Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				B952307913BE5280008477A9 /* ORMMAJavascriptBridge.h */,
+				B952307A13BE5280008477A9 /* ORMMAJavascriptBridge.m */,
+			);
+			path = "Javascript Bridge";
+			sourceTree = "<group>";
 		};
 		B9DD97C013B2C25D001559F7 /* Private Interfaces */ = {
 			isa = PBXGroup;
@@ -480,6 +493,7 @@
 				A7424EE41381909900FED855 /* MPBaseInterstitialAdapter.m in Sources */,
 				A7936B2F1381A0F0002E21AB /* MPInterstitialAdapter.m in Sources */,
 				B9DD97C713B2C25D001559F7 /* MPAdManager.m in Sources */,
+				B952307B13BE5280008477A9 /* ORMMAJavascriptBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
