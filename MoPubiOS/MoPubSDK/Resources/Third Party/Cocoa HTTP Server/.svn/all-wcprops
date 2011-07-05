@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server
+END
+WebSocket.m
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/WebSocket.m
+END
+SSCrypto.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/SSCrypto.m
+END
+AsyncSocket.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/AsyncSocket.m
+END
+HTTPAsyncFileResponse.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPAsyncFileResponse.h
+END
+HTTPAuthenticationRequest.m
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPAuthenticationRequest.m
+END
+HTTPResponse.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPResponse.h
+END
+HTTPConnection.h
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPConnection.h
+END
+DDNumber.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/DDNumber.h
+END
+HTTPAsyncFileResponse.m
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPAsyncFileResponse.m
+END
+HTTPDynamicFileResponse.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPDynamicFileResponse.h
+END
+HTTPResponse.m
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPResponse.m
+END
+HTTPConnection.m
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPConnection.m
+END
+DDRange.h
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/DDRange.h
+END
+DDNumber.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/DDNumber.m
+END
+HTTPServer.h
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPServer.h
+END
+HTTPDynamicFileResponse.m
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPDynamicFileResponse.m
+END
+DDRange.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/DDRange.m
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/LICENSE.txt
+END
+HTTPServer.m
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPServer.m
+END
+DDData.h
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/DDData.h
+END
+WebSocket.h
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/WebSocket.h
+END
+AsyncSocket.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/AsyncSocket.h
+END
+DDData.m
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/DDData.m
+END
+SSCrypto.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/SSCrypto.h
+END
+HTTPAuthenticationRequest.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/343/branches/RB-1.0/iOS/AdContainer/ORMMA/Third%20Party/Cocoa%20HTTP%20Server/HTTPAuthenticationRequest.h
+END
