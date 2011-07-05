@@ -12,7 +12,6 @@
 CGRect MPScreenBounds();
 CGFloat MPDeviceScaleFactor();
 NSString *hashedMoPubUDID();
-NSInteger angleFromOrientation();
 
 @interface NSString (MPAdditions)
 
