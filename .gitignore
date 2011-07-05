@@ -1,7 +1,7 @@
 .DS_Store
 *.pyc
 build
-MPAdManager.h
+MPAdManger.h
 MPAdManager.m
 MPGlobal.h
 MPGlobal.m
