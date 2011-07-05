@@ -73,4 +73,29 @@ NSString *hashedMoPubUDID()
 	return result;
 }
 
+NSInteger angleFromOrientation()
+{
+	NSInteger orientationAngle = -1;
+	switch ([[UIDevice currentDevice] orientation])
+	{
+		case UIDeviceOrientationPortrait:
+			orientationAngle = 0;
+			break;
+		case UIDeviceOrientationPortraitUpsideDown:
+			orientationAngle = 180;
+			break;
+		case UIDeviceOrientationLandscapeLeft:
+			orientationAngle = 270;
+			break;
+		case UIDeviceOrientationLandscapeRight:
+			orientationAngle = 90;
+			break;
+		default:
+			orientationAngle = -1;
+			break;
+	}
+	return orientationAngle;
+}
+
+
 @end
