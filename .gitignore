@@ -1,5 +1,10 @@
 .DS_Store
 *.pyc
 build
+MPAdManager.h
+MPAdManager.m
+MPGlobal.h
+MPGlobal.m
+*.xcuserstate
 Android/mopub-android-sdk/bin
 *~
