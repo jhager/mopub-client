@@ -15,6 +15,7 @@
 #import "MPAdapterMap.h"
 #import "CJSONDeserializer.h"
 #import "MPAdView+MPAdManagerPrivate.h"
+#import "UIDevice-Hardware.h"
 
 static NSString * const kTimerNotificationName		= @"Autorefresh";
 static NSString * const kErrorDomain				= @"mopub.com";
@@ -45,6 +46,18 @@ static NSString * const kNetworkTypeHeaderKey		= @"X-Networktype";
 static NSString * const kAdTypeHtml					= @"html";
 static NSString * const kAdTypeClear				= @"clear";
 
+//ORMMA constants
+NSString * const kAnimationKeyExpand = @"expand";
+NSString * const kAnimationKeyCloseExpanded = @"closeExpanded";
+NSString * const kInitialORMMAPropertiesFormat = @"{ state: '%@'," \
+" size: { width: %f, height: %f },"\
+" maxSize: { width: %f, height: %f },"\
+" screenSize: { width: %f, height: %f },"\
+" defaultPosition: { x: %f, y: %f, width: %f, height: %f },"\
+" orientation: %i,"\
+" supports: ['level-1', 'orientation', 'screen', 'size' %@ ] }";
+
+
 @interface MPAdManager (Internal)
 - (void)loadAdWithURL:(NSURL *)URL;
 - (void)forceRefreshAd;
@@ -64,6 +77,14 @@ static NSString * const kAdTypeClear				= @"clear";
 - (NSDictionary *)dictionaryFromQueryString:(NSString *)query;
 - (void)customLinkClickedForSelectorString:(NSString *)selectorString 
 							withDataString:(NSString *)dataString;
+
+- (NSString *)executeJavascript:(NSString *)javascript
+			   withVarArgs:(va_list)varargs;
+- (void)injectJavaScript;
+- (void)injectORMMAJavaScript;
+- (void)injectORMMAState;
+- (void)injectJavaScriptFile:(NSString *)fileName;
+
 @end
 
 @interface MPAdManager ()
@@ -111,7 +132,8 @@ static NSString * const kAdTypeClear				= @"clear";
 @synthesize currentAdapter = _currentAdapter;
 
 -(id)initWithAdView:(MPAdView *)adView {
-	if (self = [super init]) {
+	if ((self = [super init])) {
+        _ORMMAView = [[ORMMAView alloc] initWithFrame:adView.frame];
 		_adView = adView;
 		_data = [[NSMutableData data] retain];
 		_webviewPool = [[NSMutableSet set] retain];
@@ -740,11 +762,9 @@ static NSString * const kAdTypeClear				= @"clear";
 			NSDictionary *queryDict = [self dictionaryFromQueryString:[URL query]];
 			[self customLinkClickedForSelectorString:[queryDict objectForKey:@"fnc"]
 									  withDataString:[queryDict objectForKey:@"data"]];
-		}
-		
+		} 
 		return NO;
-	}
-	
+	}     
 	// Intercept non-click forms of navigation (e.g. "window.location = ...") if the target URL
 	// has the interceptURL prefix. Launch the ad browser.
 	if (navigationType == UIWebViewNavigationTypeOther && 
@@ -765,6 +785,12 @@ static NSString * const kAdTypeClear				= @"clear";
 	
 	// Other stuff (e.g. JavaScript) should load as usual.
 	return YES;	
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+	// we've finished loading the URL
+	[self injectJavaScript];
 }
 
 - (UIWebView *)makeAdWebViewWithFrame:(CGRect)frame
@@ -789,6 +815,442 @@ static NSString * const kAdTypeClear				= @"clear";
 {
 	_autorefreshTimerNeedsScheduling = NO;
 	if (_ignoresAutorefresh == NO) [self forceRefreshAd];
+}
+
+#pragma mark -
+#pragma mark JavaScript Injection
+
+- (void)injectJavaScript
+{
+	// notify app that the ad is preparing to show
+	//[self fireAdWillShow];
+	
+	// always inject the ORMMA code
+    NSLog( @"Ad requires ORMMA, inject code" );
+    //[self injectORMMAJavaScript];
+    
+    // now allow the app to inject it's own javascript if needed
+    //		if ( self.ormmaDelegate != nil )
+    //		{
+    //			if ( [self.ormmaDelegate respondsToSelector:@selector(javascriptForInjection)] )
+    //			{
+    //				NSString *js = [self.ormmaDelegate javascriptForInjection];
+    //				[self usingWebView:webView executeJavascript:js];
+    //			}
+    //		}
+    
+    // now inject the current state
+    [self injectORMMAState];
+    
+	// Notify app that the ad has been shown
+	//[self fireAdDidShow];
+}
+
+- (void)injectJavaScriptFile:(NSString *)fileName
+{
+	if ([self executeJavascript:@"var ormmascr = document.createElement('script');ormmascr.src='%@';ormmascr.type='text/javascript';var ormmahd = document.getElementsByTagName('head')[0];ormmahd.appendChild(ormmascr);return 'OK';", fileName] == nil )
+	{
+		NSLog( @"Error injecting Javascript!" );
+	}
+}
+
+- (void)injectORMMAState
+{
+	NSLog( @"Injecting ORMMA State into creative." );
+	
+	// setup the default state
+	_ORMMAstate = ORMMAViewStateDefault;
+	//[self fireAdWillShow];
+	
+	// add the various features the device supports
+	NSMutableString *features = [NSMutableString stringWithCapacity:100];
+
+	
+	NSInteger platformType = [[UIDevice currentDevice] platformType];
+	switch (platformType)
+	{
+		case UIDevice4iPhone:
+			//[features appendString:@", 'camera'"]; 
+			[features appendString:@", 'heading'"]; 
+			[features appendString:@", 'rotation'"]; 
+			break;
+		case UIDevice1GiPad:
+			[features appendString:@", 'heading'"]; 
+			[features appendString:@", 'rotation'"]; 
+			break;
+		case UIDevice4GiPod:
+			//[features appendString:@", 'camera'"]; 
+			[features appendString:@", 'rotation'"]; 
+			break;
+		default:
+			break;
+	}
+    
+    // setup the ad size
+	CGSize size = _webView.frame.size;
+	
+	// setup orientation
+	NSInteger angle = angleFromOrientation();
+	
+	// setup the screen size
+	UIDevice *device = [UIDevice currentDevice];
+	CGSize screenSize = [device screenSizeForOrientation:[device orientation]];	
+	
+	// get the key window
+	UIApplication *app = [UIApplication sharedApplication];
+	UIWindow *keyWindow = [app keyWindow];
+	
+	// setup the default position information (translated into window coordinates)
+	CGRect defaultPosition = [_adView convertRect:_adView.frame toView:keyWindow];	
+    
+	// build the initial properties
+	NSString *properties = [NSString stringWithFormat:kInitialORMMAPropertiesFormat, @"default",
+                            size.width, size.height,
+                            _maxSize.width, _maxSize.height,
+                            screenSize.width, screenSize.height,
+                            defaultPosition.origin.x, defaultPosition.origin.y, defaultPosition.size.width, defaultPosition.size.height,
+                            angle,
+                            features];
+	[self executeJavascript:@"window.ormmaview.fireChangeEvent( %@ );", properties];
+    
+	// make sure things are visible
+	//[self fireAdDidShow];
+}
+
+#pragma mark -
+#pragma ORMMAJavascriptBridgeDelegate Methods
+
+- (void)adIsORMMAEnabled {
+    _webView = (UIWebView *)_adView.adContentView;
+}
+
+- (NSString *)executeJavascript:(NSString *)javascript, ...
+{
+	// handle variable argument list
+	va_list args;
+	va_start( args, javascript );
+	NSString *result = [self executeJavascript:javascript withVarArgs:args];
+	va_end( args );
+	return result;
+}
+
+
+- (NSString *)executeJavascript:(NSString *)javascript withVarArgs:(va_list)args
+{
+	NSString *js = [[[NSString alloc] initWithFormat:javascript arguments:args] autorelease];
+	NSLog(@"Executing Javascript: %@", js );
+	return [_webView stringByEvaluatingJavaScriptFromString:js];
+}
+
+- (void)showAd{ 	
+	_ORMMAstate = ORMMAViewStateDefault;
+
+    /*
+    if ([_adView.delegate respondsToSelector:@selector(adViewDidLoadAd:)])
+		[_adView.delegate adViewDidLoadAd:_adView];*/
+    
+	// notify the ad view that the state has changed
+	[self executeJavascript:@"window.ormmaview.fireChangeEvent( { state: 'default' } );"];
+} 
+
+- (void)hideAd {
+	// make sure we're not already hidden
+	if (_ORMMAstate == ORMMAViewStateHidden )
+	{
+		[self executeJavascript:@"window.ormmaview.fireErrorEvent( 'Cannot hide if we're already hidden.', 'hide' );" ]; 
+		return;
+	}	
+	
+	// if the ad isn't in the default state, restore it first
+    //[_adView didCloseAd:nil];
+	
+    [self closeAd];
+	_ORMMAstate = ORMMAViewStateHidden;
+    
+	// notify the ad view that the state has changed
+	[self executeJavascript:@"window.ormmaview.fireChangeEvent( { state: 'hidden', size: { width: 0, height: 0 } } );"];
+}
+
+- (void)closeAd {
+    // if we're in the default state already, there is nothing to do
+	if (_ORMMAstate == ORMMAViewStateDefault )
+	{
+		// default ad, nothing to do
+		return;
+	}
+	if (_ORMMAstate == ORMMAViewStateHidden )
+	{
+		// hidden ad, nothing to do
+		return;
+	}
+	
+	// Closing the ad refers to restoring the default state, whatever tasks
+	// need to be taken to achieve this state
+	
+	// notify the app that we're starting
+	//[self fireAdWillClose];
+	
+	// closing the ad differs based on the current state
+	if (_ORMMAstate == ORMMAViewStateExpanded )
+	{
+		// We know we're going to close our state from the expanded state.
+		// So we basically want to reverse the steps we took to get to the
+		// expanded state as follows: (note: we already know we're in a good
+		// state to close)
+		//
+		// so... here's what we're going to do:
+		// step 1: start a new animation, and change our frame
+		// step 2: change our frame to the stored translated frame
+		// step 3: wait for the animation to complete
+		// step 4: restore our frame to the original untranslated frame
+		// step 5: get a handle to the key window
+		// step 6: get a handle to the previous parent view based on the tag
+		// step 7: restore the parent view's original tag
+		// step 8: add ourselves to the original parent window
+		// step 9: remove the blocking view
+		// step 10: fire the size changed ORMMA event
+		// step 11: update the state to default
+		// step 12: fire the state changed ORMMA event
+		// step 13: fire the application did close delegate call
+		//
+		// Now, let's get started
+		//[self fireAppShouldResume];
+		
+		// step 1: start a new animation, and change our frame
+		// step 2: change our frame to the stored translated frame
+		[UIView beginAnimations:kAnimationKeyCloseExpanded
+						context:nil];
+		[UIView setAnimationDuration:0.5];
+		[UIView setAnimationDelegate:self];
+        
+		// step 2: change our frame to the stored translated frame
+        _adView.frame = _translatedFrame;
+        
+		// update the web view as well
+		CGRect webFrame = CGRectMake( 0, 0, _translatedFrame.size.width, _translatedFrame.size.height );
+		_webView.frame = webFrame;
+		
+		[UIView commitAnimations];
+        
+		// step 3: wait for the animation to complete
+		// (more happens after the animation completes)
+    }
+	else
+	{
+		// animations for resize are delegated to the application
+		
+		// notify the app that we are resizing
+		//[self fireAdWillResizeToSize:m_defaultFrame.size];
+		
+		// restore the size
+		_adView.frame = _defaultFrame;
+		
+		// update the web view as well
+		CGRect webFrame = CGRectMake( 0, 0, _defaultFrame.size.width, _defaultFrame.size.height );
+		_webView.frame = webFrame;
+		
+		// notify the app that we are resizing
+		//[self fireAdDidResizeToSize:m_defaultFrame.size];
+		
+		// notify the app that we're done
+		//[self fireAdDidClose];
+		
+		// update our state
+		_ORMMAstate = ORMMAViewStateDefault;
+		
+		// notify the client
+		[self executeJavascript:@"window.ormmaview.fireChangeEvent( { state: 'default', size: { width: %f, height: %f } } );", _defaultFrame.size.width, _defaultFrame.size.height ];
+	}
+
+}
+
+- (void)openWithUrlString:(NSString *)urlString enableBack:(BOOL)back enableForward:(BOOL)forward enableRefresh:(BOOL)refresh {
+    //Implement variables if/when we display a webview with navigation controls
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [_webView loadRequest:requestObj];
+    //Ad takes control of app
+}
+
+-(void)resizeToWidth:(CGFloat)width height:(CGFloat)height { 
+    // resize must work within the view hierarchy; all the ORMMA ad view does
+	// is modify the frame size while leaving the containing application to 
+	// determine how this should be presented (animations).
+	
+	// note: we can only resize if we are in the default state and only to the
+	//       limit specified by the maxSize value.
+	
+	// verify that we can resize
+	if (_ORMMAstate != ORMMAViewStateDefault )
+	{
+		// we can't resize an expanded ad
+		[self executeJavascript:@"window.ormmaview.fireErrorEvent( 'Cannot resize an ad that is not in the default state.', 'resize' );" ]; 
+		return;
+	}
+	
+	// Make sure the resize honors our limits
+	if ((height > _maxSize.height) || (width > _maxSize.width)) 
+	{
+		// we can't resize outside our limits
+		[self executeJavascript:@"window.ormmaview.fireErrorEvent( 'Cannot resize an ad larger than allowed.', 'resize' );" ]; 
+		return;
+	}
+	
+	// store the original frame
+	_defaultFrame = CGRectMake(_adView.frame.origin.x, 
+                               _adView.frame.origin.y,
+                               _adView.frame.size.width,
+                               _adView.frame.size.height );
+	
+	// determine the final frame
+	CGSize size = { width, height };
+	
+	// notify the application that we are starting to resize
+	//[self fireAdWillResizeToSize:size];
+	
+	// now update the size
+	CGRect newFrame = CGRectMake(_adView.frame.origin.x, 
+                                 _adView.frame.origin.y, 
+                                 width,
+                                 height );
+	_adView.frame = newFrame;
+	
+	// resize the web view as well
+	newFrame.origin.x = 0;
+	newFrame.origin.y = 0;
+    _webView.frame = newFrame;
+	
+	// make sure we're on top of everything
+	[_adView.superview bringSubviewToFront:_adView];
+	
+	// notify the application that we are done resizing
+	//[self fireAdDidResizeToSize:size];
+	
+	// update our state
+	_ORMMAstate = ORMMAViewStateResized;
+	
+	// send state changed event
+	[self executeJavascript:@"window.ormmaview.fireChangeEvent( { state: 'resized', size: { width: %f, height: %f } } );", width, height ];
+}
+
+- (void)expandTo:(CGRect)endingFrame
+		 withURL:(NSURL *)url
+   blockingColor:(UIColor *)blockingColor
+ blockingOpacity:(CGFloat)blockingOpacity
+{
+    // OK, here's what we have to do when the creative want's to expand
+	// Note that this is NOT the same as resize.
+	// first, since we have no idea about the surrounding view hierarchy we
+	// need to pull our container to the "top" of the view hierarchy. This
+	// means that we need to be able to restore ourselves when we're done, so
+	// we want to remember our settings from before we kick off the expand
+	// function.
+	//
+	// so... here's what we're going to do:
+	// step 0: make sure we're in a valid state to expand
+	// step 1: fire the application will expand delegate call
+	// step 2: get a handle to the key window
+	// step 3: store the current frame for later re-use
+	// step 4: create a blocking view that fills the current window
+	// step 5: store the current tag for the parent view
+	// step 6: pick a random unused tag
+	// step 7: change the parent view's tag to the new random tag
+	// step 8: create a new frame, based on the current frame but with
+	//         coordinates translated to the window space
+	// step 9: store this new frame for later use
+	// step 10: change our frame to the new one
+	// step 11: add ourselves to the key window
+	// step 12: start a new animation, and change our frame
+	// step 13: wait for the animation to complete
+	// step 14: fire the size changed ORMMA event
+	// step 15: update the state to expanded
+	// step 16: fire the state changed ORMMA event
+    // step 17: fire the application did expand delegate call
+	//
+	// Now, let's get started
+	
+	// step 0: make sure we're in a valid state to expand
+	if (_ORMMAstate != ORMMAViewStateDefault )
+	{
+		// Already Expanded
+		[self executeJavascript:@"window.ormmaview.fireErrorEvent( 'Can only expand from the default state.', 'expand' );" ]; 
+		return;
+	}	
+    
+	// step 1: fire the application will expand delegate call
+	//[self fireAdWillExpandToFrame:endingFrame];
+	//[self fireAppShouldSuspend];
+    
+	// step 2: get a handle to the key window
+	UIApplication *app = [UIApplication sharedApplication];
+	UIWindow *keyWindow = [app keyWindow];
+	
+	// step 3: store the current frame for later re-use
+	_defaultFrame = _adView.frame;
+    
+	// step 4: create a blocking view that fills the current window
+	// if the status bar is visible, we need to account for it
+	CGRect f = keyWindow.frame;
+	UIApplication *a = [UIApplication sharedApplication];
+	if ( !a.statusBarHidden )
+	{
+        // status bar is visible
+        endingFrame.origin.y -= 20;
+	}
+	if (_blockingView != nil )
+	{
+		[_blockingView removeFromSuperview], _blockingView = nil;
+	}
+	_blockingView = [[UIView alloc] initWithFrame:f];
+	_blockingView.backgroundColor = blockingColor;
+	_blockingView.alpha = blockingOpacity;
+	[keyWindow addSubview:_blockingView];
+	
+	// step 5: store the current tag for the parent view
+	UIView *parentView = _adView;
+	_originalTag = parentView.tag;
+	
+	// step 6: pick a random unused tag
+	_parentTag = 0;
+	do 
+	{
+		_parentTag = arc4random() % 25000;
+	} while ( [keyWindow viewWithTag:_parentTag] != nil );
+	
+	// step 7: change the parent view's tag to the new random tag
+	parentView.tag = _parentTag;
+    
+	// step 8: create a new frame, based on the current frame but with
+	//         coordinates translated to the window space
+	// step 9: store this new frame for later use
+	_translatedFrame = [_adView convertRect:_defaultFrame
+								   toView:keyWindow];
+	
+	// step 10: change our frame to the new one
+	_adView.frame = _translatedFrame;
+	
+	// step 11: add ourselves to the key window
+	[keyWindow addSubview:_adView];
+	
+	// step 12: start a new animation, and change our frame
+	[UIView beginAnimations:kAnimationKeyExpand
+					context:nil];
+	[UIView setAnimationDuration:0.5];
+	[UIView setAnimationDelegate:self];
+	_adView.frame = endingFrame;
+    
+	// Create frame for web view
+	CGRect webFrame = CGRectMake( 0, 0, endingFrame.size.width, endingFrame.size.height );
+	_webView.frame = webFrame;
+	
+	[UIView commitAnimations];
+	
+	// step 13: wait for the animation to complete
+	// (more happens after the animation completes)
+}
+
+-(CGRect)getAdFrameInWindowCoordinates {
+    CGRect frame = [_webView convertRect:_webView.frame toView:_webView.window];
+	return frame;
 }
 
 @end

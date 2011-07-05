@@ -11,8 +11,9 @@
 #import "MPBaseAdapter.h"
 #import "MPStore.h"
 #import "MPAdBrowserController.h"
+#import "ORMMAView.h"
 
-@protocol MPAdapterDelegate;
+@protocol MPAdapterDelegate, ORMMAJavascriptDelegateBridge;
 @class MPAdView, MPTimer, MPTimerTarget, MPBaseAdapter;
 
 @interface MPAdManager : NSObject <MPAdapterDelegate, MPAdBrowserControllerDelegate, UIWebViewDelegate> {
@@ -80,6 +81,17 @@
 	
 	// Handle to the shared store object that manages in-app purchases from ads.
 	MPStore *_store;
+    
+    ORMMAJavascriptBridge *_javascriptBridge;
+    ORMMAViewState _ORMMAstate;
+    UIWebView *_webView;
+    CGRect _translatedFrame;
+    CGRect _defaultFrame;
+    UIButton *_blockingView;
+    NSInteger _originalTag;
+	NSInteger _parentTag;
+    CGSize _maxSize;
+    ORMMAView *_ORMMAView;
 }
 
 @end
