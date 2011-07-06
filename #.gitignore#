@@ -1,7 +1,0 @@
-.DS_Store
-*.pyc
-build
-
-*.xcuserstate
-Android/mopub-android-sdk/bin
-*~
