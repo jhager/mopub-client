@@ -12,7 +12,6 @@
 
 @interface MPORMMAAdapter : MPBaseAdapter <ORMMAViewDelegate> {
     ORMMAView *_ORMMAView;
-    BOOL _statusBarShouldShow;
 }
 
 @end

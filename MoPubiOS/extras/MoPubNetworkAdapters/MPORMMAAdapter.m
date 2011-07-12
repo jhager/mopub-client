@@ -82,16 +82,11 @@
 - (void)willExpandAd:(ORMMAView *)adView
 			 toFrame:(CGRect)frame{
     [self.adManager userActionWillBeginForAdapter:self];
-    [_ORMMAView setFrame:frame];
 }
 
 // Called just after an ad expands
 - (void)didExpandAd:(ORMMAView *)adView
 			toFrame:(CGRect)frame{
-    if (![[UIApplication sharedApplication] isStatusBarHidden]) {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES];
-        _statusBarShouldShow = YES;
-    }
 }
 
 - (void)showURLFullScreen:(NSURL *)url
@@ -103,9 +98,6 @@
 
 // Called just before an ad closes
 - (void)adWillClose:(ORMMAView *)adView{
-    if (_statusBarShouldShow) {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    }
 }
 
 // Called just after an ad closes

@@ -534,8 +534,8 @@ const CGFloat kDefaultShakeIntensity = 1.5;
 	NSURL *url = [NSURL URLWithString:urlString];
 	NSLog( @"Expanding to ( %f, %f ) ( %f x %f ) showing %@", x, y, w, h, url );
     // The newFrame is the not rotated frame. The callee has to take the current rotation into consideration.
-    //TODO:Change if we expanding to anything other than largest possible
-	CGRect newFrame = CGRectMake(0, 0, self.bridgeDelegate.maxSize.width, self.bridgeDelegate.maxSize.height);
+    //TODO:Change if we expand to anything other than largest possible
+	CGRect newFrame = CGRectMake(0, yDelta, self.bridgeDelegate.maxSize.width, self.bridgeDelegate.maxSize.height);
 	BOOL allowOrientation = [self booleanFromDictionary:parameters forKey:@"lockOrientation"];
 	[self.bridgeDelegate expandTo:newFrame
 						  withURL:url
