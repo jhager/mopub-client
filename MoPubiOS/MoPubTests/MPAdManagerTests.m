@@ -11,6 +11,9 @@
 #import "MPAdManager+MPAdView+TestsPrivate.h"
 #import <objc/runtime.h>
 
+static NSString *adUnitID = @"agltb3B1Yi1pbmNyCgsSBFNpdGUYAww";
+static NSString *adapterType = @"ormma";
+
 @interface MPAdManagerTests : GHTestCase {
 	MPAdView *testAdView;
 	id mockManager;
@@ -31,7 +34,7 @@
 
 // Run before the tests are run for this class
 - (void)setUpClass {
-	testAdView = [[MPAdView alloc] initWithAdUnitId:@"(adunitid)" size:CGSizeZero];
+	testAdView = [[MPAdView alloc] initWithAdUnitId:adUnitID size:CGSizeZero];
 	mockManager = [OCMockObject partialMockForObject:testAdView.adManager];
 	mockConnect = [OCMockObject niceMockForClass:[NSURLConnection class]];
 	mockResponse = [OCMockObject niceMockForClass:[NSHTTPURLResponse class]];
@@ -66,7 +69,7 @@
 - (void)testConnectionGeneration {
 	testAdView.keywords = @"(keywords)";
 		
-	NSString *testURL = [NSString stringWithFormat:@"http://ads.mopub.com/m/ad?v=4&udid=%@&q=(keywords)&id=(adunitid)&o=(orientation)&sc=(scalefactor)&z=(timezone)&ll=(location)",  
+	NSString *testURL = [NSString stringWithFormat:@"http://ads.mopub.com/m/ad?v=4&udid=%@&q=(keywords)&id=@%&o=(orientation)&sc=(scalefactor)&z=(timezone)&ll=(location)", adUnitID,  
 						 hashedMoPubUDID()];
 
 	[[[mockManager stub] andReturn:@"&o=(orientation)"] orientationQueryStringComponent];
@@ -204,8 +207,8 @@
 	[mockConnect verify];
 }	
 
--(void)testAllOtherAdapterInitialization {
-	[headerFields setValue:@"iAd" forKey:kAdTypeHeaderKey]; 
+-(void)testOtherAdapterInitialization {
+	[headerFields setValue:adapterType forKey:kAdTypeHeaderKey]; 
 	
 	[[[mockResponse expect] andReturn:headerFields] allHeaderFields];
 	int code = 200;
