@@ -11,6 +11,8 @@
 
 @interface MPAdManager (MPAdaptersPrivate)
 @property (nonatomic, retain) MPAdView *adView;
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, copy) NSURL *URL;
 - (void)setAdContentView:(UIView *)view;
 - (void)customEventDidFailToLoadAd;
 - (UIViewController *)viewControllerForPresentingModalView;

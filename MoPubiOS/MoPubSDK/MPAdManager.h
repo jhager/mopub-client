@@ -13,7 +13,7 @@
 #import "MPAdBrowserController.h"
 #import "ORMMAView.h"
 
-@protocol MPAdapterDelegate, ORMMAJavascriptDelegateBridge;
+@protocol MPAdapterDelegate;
 @class MPAdView, MPTimer, MPTimerTarget, MPBaseAdapter;
 
 @interface MPAdManager : NSObject <MPAdapterDelegate, MPAdBrowserControllerDelegate, UIWebViewDelegate> {
@@ -34,6 +34,8 @@
 	
 	// Whether the ad is currently in the middle of a user-triggered action.
 	BOOL _adActionInProgress;
+    
+    BOOL _hasTrackedClickForCurrentAd;
 
 	NSURLConnection *_conn;
 	
@@ -81,17 +83,6 @@
 	
 	// Handle to the shared store object that manages in-app purchases from ads.
 	MPStore *_store;
-    
-    ORMMAJavascriptBridge *_javascriptBridge;
-    ORMMAViewState _ORMMAstate;
-    UIWebView *_webView;
-    CGRect _translatedFrame;
-    CGRect _defaultFrame;
-    UIButton *_blockingView;
-    NSInteger _originalTag;
-	NSInteger _parentTag;
-    CGSize _maxSize;
-    ORMMAView *_ORMMAView;
 }
 
 @end

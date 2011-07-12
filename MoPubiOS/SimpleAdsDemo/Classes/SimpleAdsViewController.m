@@ -17,7 +17,7 @@
     [super viewDidLoad];
 	
 	// 320x50 size
-	mpAdView = [[MPAdView alloc] initWithAdUnitId:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYwqSrBgw" size:MOPUB_BANNER_SIZE];
+	mpAdView = [[MPAdView alloc] initWithAdUnitId:@"agltb3B1Yi1pbmNyCgsSBFNpdGUYAww" size:MOPUB_BANNER_SIZE];
 	mpAdView.delegate = self;
 	[mpAdView loadAd];
 	[self.adView addSubview:mpAdView];
@@ -73,6 +73,12 @@
 - (void)dismissInterstitial:(MPInterstitialAdController *)interstitial
 {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)adView:(MPAdView *)view WillResizeTo:(CGSize)size {
+    if (adView.frame.origin.y + size.height > 480) {
+        adView.frame = CGRectMake(adView.frame.origin.x, 480 - size.height, size.width, size.height);
+    }
 }
 
 @end

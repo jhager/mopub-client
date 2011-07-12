@@ -167,6 +167,8 @@ typedef enum
 - (void)adViewDidFailToLoadAd:(MPAdView *)view;
 - (void)adViewDidLoadAd:(MPAdView *)view;
 
+- (void)adView:(MPAdView *)view willResizeTo:(CGSize)size;
+
 /*
  * These callbacks are triggered when the ad view is about to present/dismiss a
  * modal view. If your application may be disrupted by these actions, you can

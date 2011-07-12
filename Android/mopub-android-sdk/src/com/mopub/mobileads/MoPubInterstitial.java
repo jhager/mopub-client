@@ -156,5 +156,12 @@ public class MoPubInterstitial {
         if (mInterstitialView != null) {
             mInterstitialView.registerClick();
         }
+<<<<<<< HEAD
+=======
+    }
+    
+    public void destroy() {
+        mInterstitialView.destroy();
+>>>>>>> parent of 16e1613... Android: cleanup, add/remove NPE checks as necessary
     }
 }
