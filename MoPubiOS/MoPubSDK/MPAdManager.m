@@ -524,7 +524,7 @@ static NSString * const kAdTypeClear				= @"clear";
 		// HTML ad, so just return. connectionDidFinishLoading: will take care of the rest.
 		return;
 	}	else if ([typeHeader isEqualToString:kAdTypeClear]) {
-		/*[self replaceCurrentAdapterWithAdapter:nil];
+		[self replaceCurrentAdapterWithAdapter:nil];
 		
 		// Show a blank.
 		MPLogInfo(@"*** CLEAR ***");
@@ -532,16 +532,7 @@ static NSString * const kAdTypeClear				= @"clear";
 		_isLoading = NO;
 		[_adView backFillWithNothing];
 		[self scheduleAutorefreshTimer];
-		return;*/
-        MPBaseAdapter *newAdapter = (MPBaseAdapter *)[[NSClassFromString(@"MPInterstitialAdapter") alloc] initWithAdManager:self];
-		[self replaceCurrentAdapterWithAdapter:newAdapter];
-		
-		[connection cancel];
-		
-		// Tell adapter to fire off ad request.
-		NSDictionary *params = [(NSHTTPURLResponse *)response allHeaderFields];
-		[_currentAdapter getAdWithParams:params];
-        return;
+		return;
 	}
 	
 	// Obtain adapter for specified ad type.
@@ -557,12 +548,7 @@ static NSString * const kAdTypeClear				= @"clear";
 		// Tell adapter to fire off ad request.
 		NSDictionary *params = [(NSHTTPURLResponse *)response allHeaderFields];
 		[_currentAdapter getAdWithParams:params];
-	} else if ([typeHeader isEqualToString:@"ormma"]){
-        MPBaseAdapter *newAdapter = (MPBaseAdapter *)[[NSClassFromString(@"MPORMMAAdapter") alloc] initWithAdManager:self];
-        [self replaceCurrentAdapterWithAdapter:newAdapter];
-        [connection cancel];
-        return;
-    }
+	} 
 	// Else: no adapter for the specified ad type, so just fail over.
 	else 
 	{

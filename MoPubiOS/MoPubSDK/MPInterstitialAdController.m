@@ -104,7 +104,7 @@ static NSString * const kOrientationBoth				= @"b";
 
 - (id)initWithAdUnitId:(NSString *)ID parentViewController:(UIViewController *)parent
 {
-	if (self = [super init])
+	if ((self = [super init]))
 	{
 		_ready = NO;
 		_parent = parent;
@@ -329,7 +329,7 @@ static NSString * const kOrientationBoth				= @"b";
 	else 
 		_orientationType = InterstitialOrientationTypeBoth;
 	
-	NSString *adapterType = @"iAd";//[params objectForKey:@"X-Fulladtype"];
+	NSString *adapterType = [params objectForKey:@"X-Fulladtype"];
 	if (!adapterType || [adapterType isEqualToString:@""]) return;
 	NSString *classString = [[MPAdapterMap sharedAdapterMap] classStringForAdapterType:adapterType];
 	Class cls = NSClassFromString(classString);
