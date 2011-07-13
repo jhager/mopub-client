@@ -451,6 +451,10 @@ static NSString * const kAdTypeClear				= @"clear";
 			return;
 		}
 	}
+    
+    [_data setLength:0];
+    if ([self.adView.delegate respondsToSelector:@selector(adView:didReceiveResponseParams:)]) 	
+        [self.adView.delegate adView:_adView didReceiveResponseParams:[(NSHTTPURLResponse*)response allHeaderFields]];
 	
 	// Parse response headers, set relevant URLs and booleans.
 	NSDictionary *headers = [(NSHTTPURLResponse *)response allHeaderFields];
@@ -520,7 +524,7 @@ static NSString * const kAdTypeClear				= @"clear";
 		// HTML ad, so just return. connectionDidFinishLoading: will take care of the rest.
 		return;
 	}	else if ([typeHeader isEqualToString:kAdTypeClear]) {
-		[self replaceCurrentAdapterWithAdapter:nil];
+		/*[self replaceCurrentAdapterWithAdapter:nil];
 		
 		// Show a blank.
 		MPLogInfo(@"*** CLEAR ***");
@@ -528,7 +532,16 @@ static NSString * const kAdTypeClear				= @"clear";
 		_isLoading = NO;
 		[_adView backFillWithNothing];
 		[self scheduleAutorefreshTimer];
-		return;
+		return;*/
+        MPBaseAdapter *newAdapter = (MPBaseAdapter *)[[NSClassFromString(@"MPInterstitialAdapter") alloc] initWithAdManager:self];
+		[self replaceCurrentAdapterWithAdapter:newAdapter];
+		
+		[connection cancel];
+		
+		// Tell adapter to fire off ad request.
+		NSDictionary *params = [(NSHTTPURLResponse *)response allHeaderFields];
+		[_currentAdapter getAdWithParams:params];
+        return;
 	}
 	
 	// Obtain adapter for specified ad type.
@@ -606,8 +619,6 @@ static NSString * const kAdTypeClear				= @"clear";
 	webview.delegate = self;
 	[_webviewPool addObject:webview];
 	[webview loadData:_data MIMEType:@"text/html" textEncodingName:@"utf-8" baseURL:self.URL];
-	
-    MPLogSetLevel(MPLogLevelTrace);
     
 	// Print out the response, for debugging.
 	if (MPLogGetLevel() <= MPLogLevelTrace)

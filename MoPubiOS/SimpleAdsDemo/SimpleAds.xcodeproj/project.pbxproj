@@ -72,6 +72,7 @@
 		B952308913BE9366008477A9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B952308813BE9366008477A9 /* MessageUI.framework */; };
 		B96B8EB413C7D37200532E58 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B96B8EB313C7D37200532E58 /* MapKit.framework */; };
 		B99DE0DD13C793D000E55E75 /* MPORMMAAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B99DE0DC13C793D000E55E75 /* MPORMMAAdapter.m */; };
+		B99F478813CE166100BEE324 /* MPIAdInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B99F478713CE166100BEE324 /* MPIAdInterstitialAdapter.m */; };
 		B9BDC5DE13C7D91F00403F5A /* libORMMA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9BDC5DD13C7D91F00403F5A /* libORMMA.a */; };
 		B9BDC61B13C7D99100403F5A /* ASI Http Request - LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B9BDC5E213C7D99100403F5A /* ASI Http Request - LICENSE */; };
 		B9BDC61C13C7D99100403F5A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BDC5E413C7D99100403F5A /* ASIAuthenticationDialog.m */; };
@@ -222,6 +223,8 @@
 		B96B8EB313C7D37200532E58 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = ../../../../../../Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = "<group>"; };
 		B99DE0DB13C793D000E55E75 /* MPORMMAAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPORMMAAdapter.h; sourceTree = "<group>"; };
 		B99DE0DC13C793D000E55E75 /* MPORMMAAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPORMMAAdapter.m; sourceTree = "<group>"; };
+		B99F478613CE166100BEE324 /* MPIAdInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPIAdInterstitialAdapter.h; sourceTree = "<group>"; };
+		B99F478713CE166100BEE324 /* MPIAdInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPIAdInterstitialAdapter.m; sourceTree = "<group>"; };
 		B9BDC5DD13C7D91F00403F5A /* libORMMA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libORMMA.a; sourceTree = "<group>"; };
 		B9BDC5E213C7D99100403F5A /* ASI Http Request - LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ASI Http Request - LICENSE"; sourceTree = "<group>"; };
 		B9BDC5E313C7D99100403F5A /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
@@ -544,6 +547,8 @@
 				3C8790E31344ED8600462D08 /* MPIAdAdapter.m */,
 				B99DE0DB13C793D000E55E75 /* MPORMMAAdapter.h */,
 				B99DE0DC13C793D000E55E75 /* MPORMMAAdapter.m */,
+				B99F478613CE166100BEE324 /* MPIAdInterstitialAdapter.h */,
+				B99F478713CE166100BEE324 /* MPIAdInterstitialAdapter.m */,
 			);
 			name = MoPubNetworkAdapters;
 			path = ../extras/MoPubNetworkAdapters;
@@ -885,6 +890,7 @@
 				B9BDC65C13C7DA2400403F5A /* ORMMAJavascriptBridge.m in Sources */,
 				B9BDC65D13C7DA2400403F5A /* UIDevice-ORMMA.m in Sources */,
 				B9BDC65E13C7DA2400403F5A /* UIWebView-ORMMA.m in Sources */,
+				B99F478813CE166100BEE324 /* MPIAdInterstitialAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

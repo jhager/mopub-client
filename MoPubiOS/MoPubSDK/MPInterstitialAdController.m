@@ -329,14 +329,14 @@ static NSString * const kOrientationBoth				= @"b";
 	else 
 		_orientationType = InterstitialOrientationTypeBoth;
 	
-	NSString *adapterType = [params objectForKey:@"X-Fulladtype"];
+	NSString *adapterType = @"iAd";//[params objectForKey:@"X-Fulladtype"];
 	if (!adapterType || [adapterType isEqualToString:@""]) return;
 	NSString *classString = [[MPAdapterMap sharedAdapterMap] classStringForAdapterType:adapterType];
 	Class cls = NSClassFromString(classString);
 	if (cls != nil)
 	{
 		[self.currentAdapter unregisterDelegate];	
-		self.currentAdapter = (MPBaseInterstitialAdapter *)[[cls alloc] initWithInterstitialAdController:self];
+		self.currentAdapter = (MPBaseInterstitialAdapter *)[[[cls alloc] initWithInterstitialAdController:self] autorelease];
 		[self.currentAdapter getAdWithParams:params];
 	}
 	else 

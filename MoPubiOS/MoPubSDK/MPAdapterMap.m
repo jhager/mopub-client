@@ -28,7 +28,8 @@ static MPAdapterMap *sharedAdapterMap = nil;
 	if (self = [super init])
 	{
 		_map = [[NSDictionary dictionaryWithObjectsAndKeys:
-				 @"MPIAdAdapter", @"iAd",
+				// @"MPIAdAdapter", @"iAd",
+                 @"MPIAdInterstitialAdapter", @"iAd",
 				 @"MPGoogleAdSenseAdapter", @"adsense",
 				 @"MPGoogleAdMobAdapter", @"admob_native",
 				 @"MPMillennialAdapter", @"millennial_native",
