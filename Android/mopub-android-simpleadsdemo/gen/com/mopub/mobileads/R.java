@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.mopub.simpleadsdemo;
+package com.mopub.mobileads;
 
 public final class R {
     public static final class attr {

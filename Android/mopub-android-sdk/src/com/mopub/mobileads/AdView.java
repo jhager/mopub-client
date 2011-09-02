@@ -404,6 +404,19 @@ public class AdView extends WebView {
             mIsLoading = false;
             return new PerformCustomEventTaskResult(cmHeader);
         }
+        else if (atHeader.getValue().equals("ormma")) {
+            HashMap<String, String> paramsHash = new HashMap<String, String>();
+            paramsHash.put("X-Adtype", atHeader.getValue());
+            
+            InputStream is = entity.getContent();
+            StringBuffer out = new StringBuffer();
+            byte[] b = new byte[4096];
+            for (int n; (n = is.read(b)) != -1;) {
+                out.append(new String(b, 0, n));
+            }
+            paramsHash.put("Payload", out.toString());
+            return new LoadNativeAdTaskResult(paramsHash);
+        }
         // Handle native SDK ad type.
         else if (!atHeader.getValue().equals("html")) {
             Log.i("MoPub", "Loading native ad");
@@ -868,6 +881,8 @@ public class AdView extends WebView {
     
     public void setAutorefreshEnabled(boolean enabled) {
         mAutorefreshEnabled = enabled;
+        
+        Log.d("MoPub", "Automatic refresh for " + mAdUnitId + " set to: " + enabled + ".");
         
         if (!mAutorefreshEnabled) cancelRefreshTimer();
         else scheduleRefreshTimerIfEnabled();

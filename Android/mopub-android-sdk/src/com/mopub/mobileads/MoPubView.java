@@ -76,7 +76,7 @@ public class MoPubView extends FrameLayout {
         LOCATION_AWARENESS_NORMAL, LOCATION_AWARENESS_TRUNCATED, LOCATION_AWARENESS_DISABLED
     }
 
-    public static final String HOST = "ads.mopub.com";
+    public static final String HOST = "38-debug.mopub-inc.appspot.com";
     public static final String AD_HANDLER = "/m/ad";
     public static final int DEFAULT_LOCATION_PRECISION = 6;
 
@@ -86,6 +86,7 @@ public class MoPubView extends FrameLayout {
     private Context mContext;
     private BroadcastReceiver mScreenStateReceiver;
     private boolean mIsInForeground;
+    private boolean mPreviousAutorefreshSetting;
     private LocationAwareness mLocationAwareness;
     private int mLocationPrecision;
 
@@ -177,15 +178,18 @@ public class MoPubView extends FrameLayout {
                 if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                     if (mIsInForeground) {
                         Log.d("MoPub", "Screen sleep with ad in foreground, disable refresh");
-                        if (mAdView != null) mAdView.setAutorefreshEnabled(false);
+                        if (mAdView != null) {
+                            mPreviousAutorefreshSetting = mAdView.getAutorefreshEnabled();
+                            mAdView.setAutorefreshEnabled(false);
+                        }
                     } else {
                         Log.d("MoPub", "Screen sleep but ad in background; " + 
                                 "refresh should already be disabled");
                     }
                 } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
                     if (mIsInForeground) {
-                        Log.d("MoPub", "Screen wake / ad in foreground, enable refresh");
-                        if (mAdView != null) mAdView.setAutorefreshEnabled(true);
+                        Log.d("MoPub", "Screen wake / ad in foreground, enable refresh if needed");
+                        if (mAdView != null) mAdView.setAutorefreshEnabled(mPreviousAutorefreshSetting);
                     } else {
                         Log.d("MoPub", "Screen wake but ad in background; don't enable refresh");
                     }
@@ -224,13 +228,14 @@ public class MoPubView extends FrameLayout {
 
     protected void loadNativeSDK(HashMap<String, String> paramsHash) {
         if (mAdapter != null) mAdapter.invalidate();
-
+        
         String type = paramsHash.get("X-Adtype");
         mAdapter = BaseAdapter.getAdapterForType(type);
 
         if (mAdapter != null) {
             Log.i("MoPub", "Loading native adapter for type: " + type);
-            String jsonParams = paramsHash.get("X-Nativeparams");
+            String jsonParams = type.equals("ormma") ? paramsHash.get("Payload") :
+                    paramsHash.get("X-Nativeparams");
             mAdapter.init(this, jsonParams);
             mAdapter.loadAd();
         } else {
@@ -262,13 +267,14 @@ public class MoPubView extends FrameLayout {
         if (mAdView == null) return;
         
         if (visibility == VISIBLE) {
-            Log.d("MoPub", "Ad Unit ("+mAdView.getAdUnitId()+") going visible: enabling refresh");
+            Log.d("MoPub", "Ad Unit ("+mAdView.getAdUnitId()+") going visible: enabling refresh if needed");
             mIsInForeground = true;
-            mAdView.setAutorefreshEnabled(true);
+            mAdView.setAutorefreshEnabled(mPreviousAutorefreshSetting);
         }
         else {
             Log.d("MoPub", "Ad Unit ("+mAdView.getAdUnitId()+") going invisible: disabling refresh");
             mIsInForeground = false;
+            mPreviousAutorefreshSetting = mAdView.getAutorefreshEnabled();
             mAdView.setAutorefreshEnabled(false);
         }
     }
@@ -396,5 +402,14 @@ public class MoPubView extends FrameLayout {
     
     public void setAutorefreshEnabled(boolean enabled) {
         if (mAdView != null) mAdView.setAutorefreshEnabled(enabled);
+    }
+    
+    public boolean getAutorefreshEnabled() {
+        if (mAdView != null) return mAdView.getAutorefreshEnabled();
+        else {
+            Log.w("MoPub", "Warning: Tried to call getAutorefreshEnabled() after destroying the " + 
+                    "MoPubView. Return value will be false.");
+            return false;
+        }
     }
 }

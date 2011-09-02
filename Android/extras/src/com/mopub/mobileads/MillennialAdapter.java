@@ -194,4 +194,10 @@ public class MillennialAdapter extends BaseAdapter implements MMAdListener {
     public void MMAdRequestIsCaching(MMAdView adview) {
         // Nothing needs to happen.
     }
+
+    @Override
+    public void MMAdCachingCompleted(MMAdView arg0, boolean arg1) {
+        // TODO Auto-generated method stub
+        
+    }
 }

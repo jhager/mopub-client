@@ -50,6 +50,8 @@ public abstract class BaseAdapter {
         sAdapterMap = new HashMap<String, String>();
         sAdapterMap.put("admob_native", "com.mopub.mobileads.GoogleAdMobAdapter");
         sAdapterMap.put("millennial_native", "com.mopub.mobileads.MillennialAdapter");
+        sAdapterMap.put("adsense", "com.mopub.mobileads.AdSenseAdapter");
+        sAdapterMap.put("ormma", "com.mopub.mobileads.OrmmaAdapter");
     }
     
     public void init(MoPubView view, String jsonParams) {
