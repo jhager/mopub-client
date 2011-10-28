@@ -61,13 +61,13 @@
 		A8F4C70513DA05D20001A147 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F4C6F913DA05D20001A147 /* CJSONScanner.m */; };
 		A8F4C70613DA05D20001A147 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F4C6FB13DA05D20001A147 /* CJSONSerializer.m */; };
 		B9163DF614476B2F006122D0 /* MPMillennialInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9163DF414476B2F006122D0 /* MPMillennialInterstitialAdapter.m */; };
-		B9163DFA14477079006122D0 /* libMMSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163DF814477079006122D0 /* libMMSDK.a */; };
 		B9163DFE144799B5006122D0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163DFB144799B5006122D0 /* AudioToolbox.framework */; };
 		B9163DFF144799B5006122D0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163DFC144799B5006122D0 /* MobileCoreServices.framework */; };
 		B9163E00144799B5006122D0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163DFD144799B5006122D0 /* SystemConfiguration.framework */; };
 		B9163E02144799D3006122D0 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163E01144799D3006122D0 /* MediaPlayer.framework */; };
 		B9163E04144799E6006122D0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163E03144799E5006122D0 /* QuartzCore.framework */; };
 		B9163E0614479B55006122D0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163E0514479B55006122D0 /* AVFoundation.framework */; };
+		B963E19A145B4A9B00F72370 /* libMMSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B963E198145B4A9B00F72370 /* libMMSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,14 +165,14 @@
 		A8F4C6FC13DA05D20001A147 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		B9163DF314476B2F006122D0 /* MPMillennialInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMillennialInterstitialAdapter.h; path = ../../../../Dropbox/iPhone/SlideToUnlock/MoPubSDK/extras/MoPubNetworkAdapters/MPMillennialInterstitialAdapter.h; sourceTree = "<group>"; };
 		B9163DF414476B2F006122D0 /* MPMillennialInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialInterstitialAdapter.m; path = ../../../../Dropbox/iPhone/SlideToUnlock/MoPubSDK/extras/MoPubNetworkAdapters/MPMillennialInterstitialAdapter.m; sourceTree = "<group>"; };
-		B9163DF814477079006122D0 /* libMMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMMSDK.a; path = ../../../../Downloads/MMSDK_4.5.0/MMSDK/libMMSDK.a; sourceTree = "<group>"; };
-		B9163DF914477079006122D0 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMAdView.h; path = ../../../../Downloads/MMSDK_4.5.0/MMSDK/MMAdView.h; sourceTree = "<group>"; };
 		B9163DFB144799B5006122D0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B9163DFC144799B5006122D0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		B9163DFD144799B5006122D0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B9163E01144799D3006122D0 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		B9163E03144799E5006122D0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B9163E0514479B55006122D0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B963E198145B4A9B00F72370 /* libMMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMMSDK.a; path = ../../../../Downloads/MMSDK_4.5.2/MMSDK/libMMSDK.a; sourceTree = "<group>"; };
+		B963E199145B4A9B00F72370 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMAdView.h; path = ../../../../Downloads/MMSDK_4.5.2/MMSDK/MMAdView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,13 +186,13 @@
 				3C063A0313051B6D00D7EB70 /* UIKit.framework in Frameworks */,
 				3C83C7241308151700CD306C /* CoreLocation.framework in Frameworks */,
 				3C83C7451308184D00CD306C /* iAd.framework in Frameworks */,
-				B9163DFA14477079006122D0 /* libMMSDK.a in Frameworks */,
 				B9163DFE144799B5006122D0 /* AudioToolbox.framework in Frameworks */,
 				B9163DFF144799B5006122D0 /* MobileCoreServices.framework in Frameworks */,
 				B9163E00144799B5006122D0 /* SystemConfiguration.framework in Frameworks */,
 				B9163E02144799D3006122D0 /* MediaPlayer.framework in Frameworks */,
 				B9163E04144799E6006122D0 /* QuartzCore.framework in Frameworks */,
 				B9163E0614479B55006122D0 /* AVFoundation.framework in Frameworks */,
+				B963E19A145B4A9B00F72370 /* libMMSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,8 +344,8 @@
 				3C8790E31344ED8600462D08 /* MPIAdAdapter.m */,
 				B9163DF314476B2F006122D0 /* MPMillennialInterstitialAdapter.h */,
 				B9163DF414476B2F006122D0 /* MPMillennialInterstitialAdapter.m */,
-				B9163DF814477079006122D0 /* libMMSDK.a */,
-				B9163DF914477079006122D0 /* MMAdView.h */,
+				B963E198145B4A9B00F72370 /* libMMSDK.a */,
+				B963E199145B4A9B00F72370 /* MMAdView.h */,
 			);
 			name = MoPubNetworkAdapters;
 			path = ../extras/MoPubNetworkAdapters;
@@ -548,6 +548,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Downloads/MMSDK_4.5.0/MMSDK\"",
+					"\"$(SRCROOT)/../../../Downloads/MMSDK_4.5.2/MMSDK\"",
 				);
 				PRODUCT_NAME = MoPub;
 			};
@@ -567,6 +568,7 @@
 					"\"$(SRCROOT)/Library\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Downloads/MMSDK_4.5.0/MMSDK\"",
+					"\"$(SRCROOT)/../../../Downloads/MMSDK_4.5.2/MMSDK\"",
 				);
 				PRODUCT_NAME = MoPub;
 				VALIDATE_PRODUCT = YES;
@@ -605,6 +607,7 @@
 					"\"$(SRCROOT)/Library\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Downloads/MMSDK_4.5.0/MMSDK\"",
+					"\"$(SRCROOT)/../../../Downloads/MMSDK_4.5.2/MMSDK\"",
 				);
 				PRODUCT_NAME = MoPub;
 				VALIDATE_PRODUCT = YES;
