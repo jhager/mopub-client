@@ -68,6 +68,7 @@
 		B9163E02144799D3006122D0 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163E01144799D3006122D0 /* MediaPlayer.framework */; };
 		B9163E04144799E6006122D0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163E03144799E5006122D0 /* QuartzCore.framework */; };
 		B9163E0614479B55006122D0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163E0514479B55006122D0 /* AVFoundation.framework */; };
+		B9D287FE145B2AD50065820C /* MPIAdInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D287FD145B2AD50065820C /* MPIAdInterstitialAdapter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -173,6 +174,8 @@
 		B9163E01144799D3006122D0 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		B9163E03144799E5006122D0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B9163E0514479B55006122D0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B9D287FC145B2AD50065820C /* MPIAdInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPIAdInterstitialAdapter.h; sourceTree = "<group>"; };
+		B9D287FD145B2AD50065820C /* MPIAdInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPIAdInterstitialAdapter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,6 +345,8 @@
 			children = (
 				3C8790E21344ED8600462D08 /* MPIAdAdapter.h */,
 				3C8790E31344ED8600462D08 /* MPIAdAdapter.m */,
+				B9D287FC145B2AD50065820C /* MPIAdInterstitialAdapter.h */,
+				B9D287FD145B2AD50065820C /* MPIAdInterstitialAdapter.m */,
 				B9163DF314476B2F006122D0 /* MPMillennialInterstitialAdapter.h */,
 				B9163DF414476B2F006122D0 /* MPMillennialInterstitialAdapter.m */,
 				B9163DF814477079006122D0 /* libMMSDK.a */,
@@ -527,6 +532,7 @@
 				A8F4C70613DA05D20001A147 /* CJSONSerializer.m in Sources */,
 				A7B34FC313DE509600BDA2B0 /* MPAdManager.m in Sources */,
 				B9163DF614476B2F006122D0 /* MPMillennialInterstitialAdapter.m in Sources */,
+				B9D287FE145B2AD50065820C /* MPIAdInterstitialAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
