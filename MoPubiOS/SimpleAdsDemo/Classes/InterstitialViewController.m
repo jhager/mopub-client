@@ -98,6 +98,7 @@
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial{
 	NSLog(@"Interstitial did fail to return ad %@",interstitial);
+  self.showInterstitialButton.hidden = YES;
 }
 
 - (void)interstitialWillAppear:(MPInterstitialAdController *)interstitial{

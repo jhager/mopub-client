@@ -59,7 +59,7 @@
 					   dataUsingEncoding:NSUTF8StringEncoding];
 	NSDictionary *hdrParams = [[CJSONDeserializer deserializer] deserializeAsDictionary:hdrData
 																					 error:NULL];
-	NSString *apid = [hdrParams objectForKey:@"adUnitID"];
+	NSString *apid = @"28911";//[hdrParams objectForKey:@"adUnitID"];
 	
 	_mmInterstitialAdView = [[[self class] sharedMMAdViewForAPID:apid delegate:self] retain];
 	
@@ -68,7 +68,7 @@
 		return;
 	}
 
-	[_mmInterstitialAdView refreshAd];
+	_isCaching = [_mmInterstitialAdView fetchAdToCache];
 }
 
 - (void)dealloc
@@ -85,7 +85,7 @@
 
 - (void)showInterstitialFromViewController:(UIViewController *)controller
 {
-	// No-op: not supported.
+  if ([_mmInterstitialAdView checkForCachedAd]) [_mmInterstitialAdView displayCachedAd];
 }
 
 # pragma mark - 
@@ -105,19 +105,20 @@
 	return params;
 }
 
-- (void)adRequestSucceeded:(MMAdView *)adView
-{
-	[_interstitialAdController adapterDidFinishLoadingAd:self];
-}
-
 - (void)adRequestFailed:(MMAdView *)adView
 {
-	[_interstitialAdController adapter:self didFailToLoadAdWithError:nil];
+  if (!_isCaching) {
+    [_interstitialAdController adapter:self didFailToLoadAdWithError:nil];
+  }
 }
 
-- (void)adRequestIsCaching:(MMAdView *)adView
-{
-	MPLogInfo(@"Millennial ad request is currently caching -- try showing it again later.");
+- (void)adRequestFinishedCaching:(MMAdView *)adView successful:(BOOL)didSucceed {
+  _isCaching = NO;
+  if (didSucceed) {
+    [_interstitialAdController adapterDidFinishLoadingAd:self];
+  } else {
+    [_interstitialAdController adapter:self didFailToLoadAdWithError:nil];
+  }
 }
 
 - (void)adModalWillAppear

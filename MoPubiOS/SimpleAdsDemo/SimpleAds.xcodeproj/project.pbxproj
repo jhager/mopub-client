@@ -60,7 +60,6 @@
 		A8F4C70413DA05D20001A147 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F4C6F713DA05D20001A147 /* CJSONDeserializer.m */; };
 		A8F4C70513DA05D20001A147 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F4C6F913DA05D20001A147 /* CJSONScanner.m */; };
 		A8F4C70613DA05D20001A147 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F4C6FB13DA05D20001A147 /* CJSONSerializer.m */; };
-		B9163DF614476B2F006122D0 /* MPMillennialInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9163DF414476B2F006122D0 /* MPMillennialInterstitialAdapter.m */; };
 		B9163DFE144799B5006122D0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163DFB144799B5006122D0 /* AudioToolbox.framework */; };
 		B9163DFF144799B5006122D0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163DFC144799B5006122D0 /* MobileCoreServices.framework */; };
 		B9163E00144799B5006122D0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163DFD144799B5006122D0 /* SystemConfiguration.framework */; };
@@ -68,6 +67,7 @@
 		B9163E04144799E6006122D0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163E03144799E5006122D0 /* QuartzCore.framework */; };
 		B9163E0614479B55006122D0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9163E0514479B55006122D0 /* AVFoundation.framework */; };
 		B963E19A145B4A9B00F72370 /* libMMSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B963E198145B4A9B00F72370 /* libMMSDK.a */; };
+		B963E19C145B4D5F00F72370 /* MPMillennialInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B963E19B145B4D5F00F72370 /* MPMillennialInterstitialAdapter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,8 +163,6 @@
 		A8F4C6FA13DA05D20001A147 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		A8F4C6FB13DA05D20001A147 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		A8F4C6FC13DA05D20001A147 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
-		B9163DF314476B2F006122D0 /* MPMillennialInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMillennialInterstitialAdapter.h; path = ../../../../Dropbox/iPhone/SlideToUnlock/MoPubSDK/extras/MoPubNetworkAdapters/MPMillennialInterstitialAdapter.h; sourceTree = "<group>"; };
-		B9163DF414476B2F006122D0 /* MPMillennialInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialInterstitialAdapter.m; path = ../../../../Dropbox/iPhone/SlideToUnlock/MoPubSDK/extras/MoPubNetworkAdapters/MPMillennialInterstitialAdapter.m; sourceTree = "<group>"; };
 		B9163DFB144799B5006122D0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B9163DFC144799B5006122D0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		B9163DFD144799B5006122D0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -173,6 +171,8 @@
 		B9163E0514479B55006122D0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B963E198145B4A9B00F72370 /* libMMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMMSDK.a; path = ../../../../Downloads/MMSDK_4.5.2/MMSDK/libMMSDK.a; sourceTree = "<group>"; };
 		B963E199145B4A9B00F72370 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMAdView.h; path = ../../../../Downloads/MMSDK_4.5.2/MMSDK/MMAdView.h; sourceTree = "<group>"; };
+		B963E19B145B4D5F00F72370 /* MPMillennialInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMillennialInterstitialAdapter.m; sourceTree = "<group>"; };
+		B963E19D145B4E2D00F72370 /* MPMillennialInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMillennialInterstitialAdapter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,8 +342,8 @@
 			children = (
 				3C8790E21344ED8600462D08 /* MPIAdAdapter.h */,
 				3C8790E31344ED8600462D08 /* MPIAdAdapter.m */,
-				B9163DF314476B2F006122D0 /* MPMillennialInterstitialAdapter.h */,
-				B9163DF414476B2F006122D0 /* MPMillennialInterstitialAdapter.m */,
+				B963E19D145B4E2D00F72370 /* MPMillennialInterstitialAdapter.h */,
+				B963E19B145B4D5F00F72370 /* MPMillennialInterstitialAdapter.m */,
 				B963E198145B4A9B00F72370 /* libMMSDK.a */,
 				B963E199145B4A9B00F72370 /* MMAdView.h */,
 			);
@@ -526,7 +526,7 @@
 				A8F4C70513DA05D20001A147 /* CJSONScanner.m in Sources */,
 				A8F4C70613DA05D20001A147 /* CJSONSerializer.m in Sources */,
 				A7B34FC313DE509600BDA2B0 /* MPAdManager.m in Sources */,
-				B9163DF614476B2F006122D0 /* MPMillennialInterstitialAdapter.m in Sources */,
+				B963E19C145B4D5F00F72370 /* MPMillennialInterstitialAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

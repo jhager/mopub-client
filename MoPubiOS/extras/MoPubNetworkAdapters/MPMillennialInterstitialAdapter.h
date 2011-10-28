@@ -14,6 +14,7 @@
 @interface MPMillennialInterstitialAdapter : MPBaseInterstitialAdapter <MMAdDelegate>
 {
 	MMAdView *_mmInterstitialAdView;
+  BOOL _isCaching;
 }
 
 @end
