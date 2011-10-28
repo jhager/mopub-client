@@ -48,7 +48,7 @@
 
 - (IBAction) getModalInterstitial{
 	getAndShow = NO;
-	self.interstitialAdController = [MPInterstitialAdController interstitialAdControllerForAdUnitId:PUB_ID_INTERSTITIAL];	
+	self.interstitialAdController = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYnInDBQw"];	
 	self.interstitialAdController.parent = self;
 	[self.interstitialAdController loadAd];
 }
@@ -60,7 +60,8 @@
 #pragma mark Navigation Interstitials 
 
 - (IBAction) getNavigationInterstitial{
-	self.navigationInterstitialAdController = [MPInterstitialAdController interstitialAdControllerForAdUnitId:PUB_ID_NAV_INTERSTITIAL];
+	self.navigationInterstitialAdController = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYnInDBQw"];
+
 	self.navigationInterstitialAdController.parent = nil;//self.navigationController;
 	[self.navigationInterstitialAdController loadAd];
 }

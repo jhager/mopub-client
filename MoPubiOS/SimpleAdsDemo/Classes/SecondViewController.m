@@ -44,7 +44,7 @@
 */
 
 - (IBAction) showInterstitial:(id)sender{
-	MPInterstitialAdController *interstitialAdController = [MPInterstitialAdController interstitialAdControllerForAdUnitId:PUB_ID_INTERSTITIAL];
+	MPInterstitialAdController *interstitialAdController = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYnInDBQw"];
 	if (interstitialAdController.ready){
 		interstitialAdController.parent = self; // sign up as the delegate so that we can tear it down appropriately
 		[self presentModalViewController:interstitialAdController animated:YES];
