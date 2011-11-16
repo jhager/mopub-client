@@ -50,6 +50,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -105,7 +106,8 @@ public class AdView extends WebView {
     private int mWidth;
     private int mHeight;
     private String mAdOrientation;
-
+    
+    protected Context mContext;
     protected MoPubView mMoPubView;
     private HttpResponse mResponse;
     private String mResponseString;
@@ -114,6 +116,7 @@ public class AdView extends WebView {
     public AdView(Context context, MoPubView view) {
         super(context);
         
+        mContext = context;
         mMoPubView = view;
         mAutorefreshEnabled = true;
         
@@ -157,7 +160,7 @@ public class AdView extends WebView {
                     url.startsWith("geo:") || url.startsWith("google.streetview:")) { 
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url)); 
                 try {
-                    getContext().startActivity(intent);
+                    mContext.startActivity(intent);
                 } catch (ActivityNotFoundException e) {
                     Log.w("MoPub", "Could not handle intent with URI: " + url +
                         ". Is this intent unsupported on your phone?");
@@ -226,7 +229,7 @@ public class AdView extends WebView {
         }
         
         LocationManager lm 
-                = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+                = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         Location gpsLocation = null;
         try {
             gpsLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -277,7 +280,7 @@ public class AdView extends WebView {
         StringBuilder sz = new StringBuilder("http://" + MoPubView.HOST + MoPubView.AD_HANDLER);
         sz.append("?v=4&id=" + mAdUnitId);
         
-        String udid = Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
+        String udid = Secure.getString(mContext.getContentResolver(), Secure.ANDROID_ID);
         String udidDigest = (udid == null) ? "" : Utils.sha1(udid);
         sz.append("&udid=sha:" + udidDigest);
 
@@ -301,8 +304,7 @@ public class AdView extends WebView {
         sz.append("&o=" + orString);
         
         DisplayMetrics metrics = new DisplayMetrics();
-        Activity activity = (Activity) getContext();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
         sz.append("&sc_a=" + metrics.density);
       
         return sz.toString();
@@ -531,7 +533,7 @@ public class AdView extends WebView {
         Intent customIntent = new Intent(action);
         if (adData != null) customIntent.putExtra(EXTRA_AD_CLICK_DATA, adData);
         try {
-            getContext().startActivity(customIntent);
+            mContext.startActivity(customIntent);
         } catch (ActivityNotFoundException e) {
             Log.w("MoPub", "Could not handle custom intent: " + action +
                     ". Is your intent spelled correctly?");
@@ -616,7 +618,7 @@ public class AdView extends WebView {
             Log.d("MoPub", "Final URI to show in browser: " + uri);
             Intent actionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
             try {
-                getContext().startActivity(actionIntent);
+                mContext.startActivity(actionIntent);
             } catch (ActivityNotFoundException e) {
                 String action = actionIntent.getAction();
                 if (action.startsWith("market://")) {
@@ -627,7 +629,7 @@ public class AdView extends WebView {
                     Log.w("MoPub", "Could not handle intent action: " + action);
                 }
                 
-                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("about:blank")));
+                mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("about:blank")));
             }
         }
     }
@@ -703,6 +705,7 @@ public class AdView extends WebView {
      * Stops refreshing ads.
      */
     protected void cleanup() {
+    	mMoPubView.removeView(this);
         setAutorefreshEnabled(false);
     }
 
