@@ -128,7 +128,7 @@ public class MoPubInterstitial {
     }
     
     public Activity getActivity() {
-        return mActivity;
+    	return mActivity;
     }
     
     public void showAd() {

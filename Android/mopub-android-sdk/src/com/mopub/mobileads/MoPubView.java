@@ -100,7 +100,7 @@ public class MoPubView extends FrameLayout {
     }
 
     public MoPubView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        super(context.getApplicationContext(), attrs);
 
         mContext = context;
         mIsInForeground = (getVisibility() == VISIBLE);
@@ -129,16 +129,14 @@ public class MoPubView extends FrameLayout {
     private void initVersionDependentAdView(Context context) {
         int sdkVersion = (new Integer(Build.VERSION.SDK)).intValue();
         if (sdkVersion < 7) {
-            mAdView = new AdView(context.getApplicationContext(), this);
-        	//mAdView = new AdView(context, this);
+        	mAdView = new AdView(context, this);
         } else {
             // On Android 2.1 (Eclair) and up, try to load our HTML5-enabled AdView class.
             Class<?> HTML5AdViewClass = null;
             try {
                 HTML5AdViewClass = (Class<?>) Class.forName("com.mopub.mobileads.HTML5AdView");
             } catch (ClassNotFoundException e) {
-                mAdView = new AdView(context.getApplicationContext(), this);
-                //mAdView = new AdView(context, this);
+                mAdView = new AdView(context, this);
                 return;
             } 
 
@@ -167,8 +165,7 @@ public class MoPubView extends FrameLayout {
                 Log.e("MoPub", "Could not load HTML5AdView.");
             }
 
-            if (mAdView == null) mAdView = new AdView(context.getApplicationContext(), this);
-            //if (mAdView == null) mAdView = new AdView(context, this);
+            if (mAdView == null) mAdView = new AdView(context, this);
         }
     }
 
