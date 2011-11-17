@@ -37,8 +37,13 @@ import com.mopub.mobileads.MoPubView.OnAdLoadedListener;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class MoPubActivity extends Activity implements OnAdLoadedListener {
@@ -46,6 +51,7 @@ public class MoPubActivity extends Activity implements OnAdLoadedListener {
 
     private MoPubView mMoPubView;
     private RelativeLayout mLayout;
+    private ImageView mCloseButton;
 
     /** Called when the activity is first created. */
     @Override
@@ -84,6 +90,17 @@ public class MoPubActivity extends Activity implements OnAdLoadedListener {
                 RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         adViewLayout.addRule(RelativeLayout.CENTER_IN_PARENT);
         mLayout.addView(mMoPubView, adViewLayout);
+        
+        mCloseButton = new ImageView(this);
+        mCloseButton.setImageDrawable(getResources().getDrawable(R.drawable.closebutton));
+        mCloseButton.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v) {
+        		MoPubActivity.this.finish();
+        	}
+        });
+        
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(50, 50, Gravity.CENTER);
+        mLayout.addView(mCloseButton, layoutParams);
 
         setContentView(mLayout);
     }
@@ -96,6 +113,7 @@ public class MoPubActivity extends Activity implements OnAdLoadedListener {
     @Override
     protected void onDestroy() {
         mMoPubView.destroy();
+        mLayout.removeAllViews();
         super.onDestroy();
     }
     
