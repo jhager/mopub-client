@@ -50,6 +50,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -301,8 +302,7 @@ public class AdView extends WebView {
         sz.append("&o=" + orString);
         
         DisplayMetrics metrics = new DisplayMetrics();
-        Activity activity = (Activity) getContext();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
         sz.append("&sc_a=" + metrics.density);
       
         return sz.toString();
