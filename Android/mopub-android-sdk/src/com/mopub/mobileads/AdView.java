@@ -169,7 +169,7 @@ public class AdView extends WebView {
             Log.d("MoPub", "Ad clicked. Click URL: " + url);
             mMoPubView.adClicked();
 
-            showBrowserAfterFollowingRedirectsForUrl(url);
+            showBrowserForUrl(url);
             return true;
         }
 
@@ -181,7 +181,7 @@ public class AdView extends WebView {
             if (redirectUrl != null && url.startsWith(redirectUrl)) {
                 url = urlWithClickTrackingRedirect(adView, url);
                 view.stopLoading();
-                showBrowserAfterFollowingRedirectsForUrl(url);
+                showBrowserForUrl(url);
             }
         }
         
@@ -538,97 +538,25 @@ public class AdView extends WebView {
         }
     }
     
-    private void showBrowserAfterFollowingRedirectsForUrl(String url) {
-        new ShowBrowserTask().execute(url);
-    }
-    
-    private class ShowBrowserTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-            String startingUrl = urls[0];
-            URL url = null;
-            try {
-                url = new URL(startingUrl);
-            } catch (MalformedURLException e) {
-                // Return the starting URL if it is non-null, since that could still potentially be
-                // a "valid" URL (e.g. one with a custom scheme).
-                return (startingUrl != null) ? startingUrl : "";
+    private void showBrowserForUrl(String url) {
+        //new ShowBrowserTask().execute(url);
+    	if (url == null || url.equals("")) url = "about:blank";
+    	Log.d("MoPub", "Final URI to show in browser: " + url);
+    	
+    	Intent actionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        try {
+            getContext().startActivity(actionIntent);
+        } catch (ActivityNotFoundException e) {
+            String action = actionIntent.getAction();
+            if (action.startsWith("market://")) {
+                Log.w("MoPub", "Could not handle market action: " + action
+                        + ". Perhaps you're running in the emulator, which does not have "
+                        + "the Android Market?");
+            } else {
+                Log.w("MoPub", "Could not handle intent action: " + action);
             }
             
-            // Find the final target URL, manually following redirects if necessary. We can't use 
-            // HttpClient for this since the target may not be a supported URL (e.g. a market URL).
-            int statusCode = -1;
-            HttpURLConnection connection = null;
-            String nextLocation = url.toString();
-            
-            // Keep track of where we've been to detect redirect cycles.
-            Set<String> redirectLocations = new HashSet<String>();
-            redirectLocations.add(nextLocation);
-            
-            try {
-                do {
-                    connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestProperty("User-Agent", mUserAgent);
-                    connection.setInstanceFollowRedirects(false);
-                    
-                    statusCode = connection.getResponseCode();
-                    if (statusCode == HttpStatus.SC_OK) {
-                        // Successfully reached the end of redirects: nextLocation is our target.
-                        connection.disconnect();
-                        break;
-                    } else {
-                        // Depending on statusCode, we'll either continue to redirect, or error
-                        // out (in which case nextLocation will probably be null).
-                        nextLocation = connection.getHeaderField("location");
-                        connection.disconnect();
-                        
-                        // Check for redirect cycle.
-                        if (!redirectLocations.add(nextLocation)) {
-                            Log.d("MoPub", "Click redirect cycle detected -- will show blank.");
-                            return "";
-                        }
-                            
-                        url = new URL(nextLocation);
-                    }
-                }
-                while (isStatusCodeForRedirection(statusCode));
-            } catch (IOException e) {
-                // Return the last URL we tried to reach, since that could still potentially be a
-                // "valid" URL (e.g. one with a custom scheme).
-                return (nextLocation != null) ? nextLocation : "";
-            } finally {
-                if (connection != null) connection.disconnect();
-            }
-            
-            return nextLocation;
-        }
-        
-        private boolean isStatusCodeForRedirection(int statusCode) {
-            return (statusCode == HttpStatus.SC_MOVED_TEMPORARILY ||
-                    statusCode == HttpStatus.SC_MOVED_PERMANENTLY ||
-                    statusCode == HttpStatus.SC_TEMPORARY_REDIRECT ||
-                    statusCode == HttpStatus.SC_SEE_OTHER);
-        }
-
-        @Override
-        protected void onPostExecute(String uri) {
-            if (uri == null || uri.equals("")) uri = "about:blank";
-            Log.d("MoPub", "Final URI to show in browser: " + uri);
-            Intent actionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-            try {
-                getContext().startActivity(actionIntent);
-            } catch (ActivityNotFoundException e) {
-                String action = actionIntent.getAction();
-                if (action.startsWith("market://")) {
-                    Log.w("MoPub", "Could not handle market action: " + action
-                            + ". Perhaps you're running in the emulator, which does not have "
-                            + "the Android Market?");
-                } else {
-                    Log.w("MoPub", "Could not handle intent action: " + action);
-                }
-                
-                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("about:blank")));
-            }
+            getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("about:blank")));
         }
     }
     
