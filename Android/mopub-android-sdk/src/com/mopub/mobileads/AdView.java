@@ -539,7 +539,6 @@ public class AdView extends WebView {
     }
     
     private void showBrowserForUrl(String url) {
-        //new ShowBrowserTask().execute(url);
     	if (url == null || url.equals("")) url = "about:blank";
     	Log.d("MoPub", "Final URI to show in browser: " + url);
     	
